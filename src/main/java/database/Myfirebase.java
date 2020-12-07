@@ -33,7 +33,7 @@ public class Myfirebase {
 
     private void initFirebase(){
         try{
-            FileInputStream serviceAccount = new FileInputStream(new File("/media/maddy/New Volume/GoJs/rpa-da/src/main/resources/objectmodeller-firebase.json"));
+            FileInputStream serviceAccount = new FileInputStream(new File("/media/maddy/New Volume/GoJs/rpa-da/src/main/resources/.objectmodeller-firebase.json"));
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(credentials)
