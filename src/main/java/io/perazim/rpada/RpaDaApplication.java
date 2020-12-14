@@ -12,9 +12,9 @@ public class RpaDaApplication {
 
 		SpringApplication.run(RpaDaApplication.class, args);
 
-		GetEntityData.getInstance().init();
-		if(GetEntityData.getInstance().isDataLoaded()){
-			GetEntityData.getInstance().printData();
+		GetEntityCanvasData.getInstance().init();
+		if(GetEntityCanvasData.getInstance().isDataLoaded()){
+			GetEntityCanvasData.getInstance().makeEntCanvasData();
 		}
 
 
