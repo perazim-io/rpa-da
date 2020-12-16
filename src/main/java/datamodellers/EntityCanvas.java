@@ -1,7 +1,7 @@
 package datamodellers;
 
 
-public class entityCanvas {
+public class EntityCanvas {
     private String id;
     private String microserviceId;
     private String projectId;

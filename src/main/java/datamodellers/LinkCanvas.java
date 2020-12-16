@@ -1,6 +1,6 @@
 package datamodellers;
 
-public class linkCanvas {
+public class LinkCanvas {
     private long crtMs;
     private String crtStoryId;
     private String crtTaskId;

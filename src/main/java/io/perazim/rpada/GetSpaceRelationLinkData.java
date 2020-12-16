@@ -7,39 +7,36 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.EntityCanvas;
-import datamodellers.LinkCanvas;
 import datamodellers.SpaceEntity;
 
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.List;
 
-public class GetLinkCanvasData {
-
-    private static GetLinkCanvasData _instance;
+public class GetSpaceRelationLinkData {
+    private static GetSpaceRelationLinkData _instance;
     private Firestore firestore = Myfirebase.getInstance().getFirestore();
     private AtomicBoolean dataLoaded = new AtomicBoolean(false);
-    private ApiFuture<QuerySnapshot> linkCanvasSnap;
+    private ApiFuture<QuerySnapshot> spaceRelationLinkData;
 
-    public static GetLinkCanvasData getInstance() {
+    public static GetSpaceRelationLinkData getInstance() {
         if (_instance == null) {
-            _instance = new GetLinkCanvasData();
+            _instance = new GetSpaceRelationLinkData();
         }
         return _instance;
     }
 
-    private GetLinkCanvasData() {
+    private GetSpaceRelationLinkData() {
 
     }
 
     public void init(){
-        String linkCanvasPath = "linkCanvas/1010/linkCanvas/dZZN6Gjn8sjPa6JTFDrf/linkCanvas";
+        String RelationLink = "spaceRelationLink/1010/spaceRelationLink/dZZN6Gjn8sjPa6JTFDrf/spaceRelationLink";
 
         //querying data from firebase
         try {
-            linkCanvasSnap = firestore.collection(linkCanvasPath).get();
+            spaceRelationLinkData = firestore.collection(RelationLink).get();
             this.dataLoaded.set(true);
         } catch (Exception e) {
             System.out.println("error");
@@ -51,10 +48,10 @@ public class GetLinkCanvasData {
         return this.dataLoaded.get();
     }
 
-    public void makeLinkCanvasData(){
+    public void makeSpaceRelationLinkData(){
 
         try {
-            List<QueryDocumentSnapshot> documents = linkCanvasSnap.get().getDocuments();
+            List<QueryDocumentSnapshot> documents = spaceRelationLinkData.get().getDocuments();
             List<SpaceEntity> e = new ArrayList<>();
             documents.forEach(queryDocumentSnapshot -> {
 

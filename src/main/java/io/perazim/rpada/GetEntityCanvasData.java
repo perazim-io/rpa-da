@@ -4,8 +4,9 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.gson.Gson;
 import database.Myfirebase;
-import datamodellers.entityCanvas;
+import datamodellers.EntityCanvas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,26 +59,33 @@ public class GetEntityCanvasData {
     public void makeEntCanvasData() {
         try {
             List<QueryDocumentSnapshot> documents = entityCanvasData.get().getDocuments();
-            List<entityCanvas> e = new ArrayList<>();
+            System.out.println(documents);
+            List<EntityCanvas> e = new ArrayList<>();
 
             documents.forEach(queryDocumentSnapshot -> {
 
                 Map ent=queryDocumentSnapshot.getData();
+                Gson gson=new Gson();
+                String jsonString= gson.toJson(ent);
 
-                entityCanvas obj=new entityCanvas();
-                obj.setEntityId(ent.get("entityId").toString());
-                obj.setLoc(ent.get("loc").toString());
-                obj.setMicroserviceId(ent.get("microserviceId").toString());
-                obj.setProjectId(ent.get("projectId").toString());
-                obj.setCrtMs((Long) ent.get("crtMs"));
-                obj.setCurrentVersion((String) ent.get("currentVersion"));
-
-                e.add(obj);
-
+                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
+               // System.out.println(entityCanvas);
+                System.out.println(entityCanvas.getCrtMs());
+//                EntityCanvas obj=new EntityCanvas();
+//
+//                obj.setEntityId(ent.get("entityId").toString());
+//                obj.setLoc(ent.get("loc").toString());
+//                obj.setMicroserviceId(ent.get("microserviceId").toString());
+//                obj.setProjectId(ent.get("projectId").toString());
+//                obj.setCrtMs((Long) ent.get("crtMs"));
+//                obj.setCurrentVersion((String) ent.get("currentVersion"));
+//
+//                e.add(obj);
             });
-            e.forEach(ele->{
-                System.out.println("this->"+ele.getCrtMs());
-            });
+//            e.forEach(ele->{
+//                System.out.println("this->"+ele.getCrtMs());
+//            });
+//            System.out.println(e);
 
         } catch (Exception e){
             e.printStackTrace();

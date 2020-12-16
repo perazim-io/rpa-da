@@ -7,39 +7,36 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.EntityCanvas;
-import datamodellers.LinkCanvas;
 import datamodellers.SpaceEntity;
 
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.List;
 
-public class GetLinkCanvasData {
-
-    private static GetLinkCanvasData _instance;
+public class GetSpaceAttributeData {
+    private static GetSpaceAttributeData _instance;
     private Firestore firestore = Myfirebase.getInstance().getFirestore();
     private AtomicBoolean dataLoaded = new AtomicBoolean(false);
-    private ApiFuture<QuerySnapshot> linkCanvasSnap;
+    private ApiFuture<QuerySnapshot> spaceAttributeData;
 
-    public static GetLinkCanvasData getInstance() {
+    public static GetSpaceAttributeData getInstance() {
         if (_instance == null) {
-            _instance = new GetLinkCanvasData();
+            _instance = new GetSpaceAttributeData();
         }
         return _instance;
     }
 
-    private GetLinkCanvasData() {
+    private GetSpaceAttributeData() {
 
     }
 
     public void init(){
-        String linkCanvasPath = "linkCanvas/1010/linkCanvas/dZZN6Gjn8sjPa6JTFDrf/linkCanvas";
+        String spaceAttributePath = "spaceAttribute/1010/spaceAttribute/dZZN6Gjn8sjPa6JTFDrf/spaceAttribute";
 
         //querying data from firebase
         try {
-            linkCanvasSnap = firestore.collection(linkCanvasPath).get();
+            spaceAttributeData = firestore.collection(spaceAttributePath).get();
             this.dataLoaded.set(true);
         } catch (Exception e) {
             System.out.println("error");
@@ -51,10 +48,10 @@ public class GetLinkCanvasData {
         return this.dataLoaded.get();
     }
 
-    public void makeLinkCanvasData(){
+    public void makeSpaceAttributeData(){
 
         try {
-            List<QueryDocumentSnapshot> documents = linkCanvasSnap.get().getDocuments();
+            List<QueryDocumentSnapshot> documents = spaceAttributeData.get().getDocuments();
             List<SpaceEntity> e = new ArrayList<>();
             documents.forEach(queryDocumentSnapshot -> {
 
