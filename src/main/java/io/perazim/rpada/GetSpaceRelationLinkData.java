@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.EntityCanvas;
 import datamodellers.SpaceEntity;
+import datamodellers.SpaceRelationLink;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,16 +53,16 @@ public class GetSpaceRelationLinkData {
 
         try {
             List<QueryDocumentSnapshot> documents = spaceRelationLinkData.get().getDocuments();
-            List<SpaceEntity> e = new ArrayList<>();
-            documents.forEach(queryDocumentSnapshot -> {
+            List<SpaceRelationLink> e = new ArrayList<>();
+            SpaceRelationLink spaceLink;
+            for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
+                Map ent = queryDocumentSnapshot.getData();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(ent);
 
-                Map ent=queryDocumentSnapshot.getData();
-                Gson gson=new Gson();
-                String jsonString= gson.toJson(ent);
-
-                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
-
-            });
+                spaceLink = gson.fromJson(jsonString, SpaceRelationLink.class);
+                e.add(spaceLink);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error");

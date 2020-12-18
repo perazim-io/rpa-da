@@ -59,9 +59,8 @@ public class GetEntityCanvasData {
     public void makeEntCanvasData() {
         try {
             List<QueryDocumentSnapshot> documents = entityCanvasData.get().getDocuments();
-            System.out.println(documents);
             List<EntityCanvas> e = new ArrayList<>();
-            EntityCanvas entityCanvas=new EntityCanvas();
+            EntityCanvas entityCanvas;
             for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
                 Map ent = queryDocumentSnapshot.getData();
                 Gson gson = new Gson();

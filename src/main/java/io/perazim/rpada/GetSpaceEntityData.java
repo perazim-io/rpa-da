@@ -54,13 +54,13 @@ public class GetSpaceEntityData {
         try {
             List<QueryDocumentSnapshot> documents = spaceEntityData.get().getDocuments();
             List<SpaceEntity> e = new ArrayList<>();
-            documents.forEach(queryDocumentSnapshot -> {
+            SpaceEntity spaceEntity;
+            for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
+                Map ent = queryDocumentSnapshot.getData();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(ent);
 
-                Map ent=queryDocumentSnapshot.getData();
-                Gson gson=new Gson();
-                String jsonString= gson.toJson(ent);
-
-                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
+                spaceEntity = gson.fromJson(jsonString, SpaceEntity.class);
 
 //                spaceEntity obj=new spaceEntity();
 //                obj.setProjectId(ent.get("projectId").toString());
@@ -77,9 +77,9 @@ public class GetSpaceEntityData {
 //                obj.setCrtDt((Number) ent.get("crtDt"));
 //                obj.setUpdtDt((Number) ent.get("updtDt"));
 //
-//                e.add(obj);
+                e.add(spaceEntity);
 
-            });
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error");

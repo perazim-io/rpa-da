@@ -7,6 +7,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.EntityCanvas;
+import datamodellers.SpaceAttribute;
 import datamodellers.SpaceEntity;
 
 import java.util.ArrayList;
@@ -52,16 +53,16 @@ public class GetSpaceAttributeData {
 
         try {
             List<QueryDocumentSnapshot> documents = spaceAttributeData.get().getDocuments();
-            List<SpaceEntity> e = new ArrayList<>();
-            documents.forEach(queryDocumentSnapshot -> {
+            List<SpaceAttribute> e = new ArrayList<>();
+            SpaceAttribute spaceAttribute;
+            for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
+                Map ent = queryDocumentSnapshot.getData();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(ent);
 
-                Map ent=queryDocumentSnapshot.getData();
-                Gson gson=new Gson();
-                String jsonString= gson.toJson(ent);
-
-                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
-
-            });
+                spaceAttribute = gson.fromJson(jsonString, SpaceAttribute.class);
+                e.add(spaceAttribute);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error");

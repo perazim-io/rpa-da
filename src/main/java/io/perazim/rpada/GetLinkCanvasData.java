@@ -55,16 +55,16 @@ public class GetLinkCanvasData {
 
         try {
             List<QueryDocumentSnapshot> documents = linkCanvasSnap.get().getDocuments();
-            List<SpaceEntity> e = new ArrayList<>();
-            documents.forEach(queryDocumentSnapshot -> {
+            List<LinkCanvas> e = new ArrayList<>();
+            LinkCanvas linkCanvas;
+            for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
+                Map ent = queryDocumentSnapshot.getData();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(ent);
 
-                Map ent=queryDocumentSnapshot.getData();
-                Gson gson=new Gson();
-                String jsonString= gson.toJson(ent);
-
-                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
-
-            });
+                linkCanvas = gson.fromJson(jsonString, LinkCanvas.class);
+                e.add(linkCanvas);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error");
