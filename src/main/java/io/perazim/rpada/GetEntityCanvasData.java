@@ -61,16 +61,16 @@ public class GetEntityCanvasData {
             List<QueryDocumentSnapshot> documents = entityCanvasData.get().getDocuments();
             System.out.println(documents);
             List<EntityCanvas> e = new ArrayList<>();
+            EntityCanvas entityCanvas=new EntityCanvas();
+            for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
+                Map ent = queryDocumentSnapshot.getData();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(ent);
 
-            documents.forEach(queryDocumentSnapshot -> {
+                entityCanvas = gson.fromJson(jsonString, EntityCanvas.class);
+                // System.out.println(entityCanvas);
+//                System.out.println(entityCanvas.getCrtMs());
 
-                Map ent=queryDocumentSnapshot.getData();
-                Gson gson=new Gson();
-                String jsonString= gson.toJson(ent);
-
-                EntityCanvas entityCanvas=gson.fromJson(jsonString, EntityCanvas.class);
-               // System.out.println(entityCanvas);
-                System.out.println(entityCanvas.getCrtMs());
 //                EntityCanvas obj=new EntityCanvas();
 //
 //                obj.setEntityId(ent.get("entityId").toString());
@@ -80,11 +80,11 @@ public class GetEntityCanvasData {
 //                obj.setCrtMs((Long) ent.get("crtMs"));
 //                obj.setCurrentVersion((String) ent.get("currentVersion"));
 //
-//                e.add(obj);
+                e.add(entityCanvas);
+            }
+            e.forEach(ele->{
+                System.out.println("this->"+ele.getCrtMs());
             });
-//            e.forEach(ele->{
-//                System.out.println("this->"+ele.getCrtMs());
-//            });
 //            System.out.println(e);
 
         } catch (Exception e){

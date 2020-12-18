@@ -1,5 +1,7 @@
 package io.perazim.rpada;
 
+import com.google.gson.stream.JsonToken;
+import datamodellers.EntityCanvas;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,6 +18,7 @@ public class RpaDaApplication {
 		if(GetEntityCanvasData.getInstance().isDataLoaded()){
 			GetEntityCanvasData.getInstance().makeEntCanvasData();
 		}
+
 
 //		GetLinkCanvasData.getInstance().init();
 //		if(GetLinkCanvasData.getInstance().isDataLoaded()){
