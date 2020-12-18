@@ -9,6 +9,7 @@ import database.Myfirebase;
 import datamodellers.EntityCanvas;
 import datamodellers.SpaceEntity;
 import datamodellers.SpaceRelationLink;
+import domain_model.dataConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,8 @@ public class GetSpaceRelationLinkData {
                 spaceLink = gson.fromJson(jsonString, SpaceRelationLink.class);
                 e.add(spaceLink);
             }
+
+            dataConverter.getInstance().init(e);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("error");

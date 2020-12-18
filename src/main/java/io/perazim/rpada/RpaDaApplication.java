@@ -14,10 +14,10 @@ public class RpaDaApplication {
 
 		SpringApplication.run(RpaDaApplication.class, args);
 
-		GetEntityCanvasData.getInstance().init();
-		if(GetEntityCanvasData.getInstance().isDataLoaded()){
-			GetEntityCanvasData.getInstance().makeEntCanvasData();
-		}
+//		GetEntityCanvasData.getInstance().init();
+//		if(GetEntityCanvasData.getInstance().isDataLoaded()){
+//			GetEntityCanvasData.getInstance().makeEntCanvasData();
+//		}
 
 
 //		GetLinkCanvasData.getInstance().init();
@@ -40,10 +40,10 @@ public class RpaDaApplication {
 //			GetSpaceRelationPortData.getInstance().makeSpaceRelationPortData();
 //		}
 //
-//		GetSpaceRelationLinkData.getInstance().init();
-//		if(GetSpaceRelationLinkData.getInstance().isDataLoaded()){
-//			GetSpaceRelationLinkData.getInstance().makeSpaceRelationLinkData();
-//		}
+		GetSpaceRelationLinkData.getInstance().init();
+		if(GetSpaceRelationLinkData.getInstance().isDataLoaded()){
+			GetSpaceRelationLinkData.getInstance().makeSpaceRelationLinkData();
+		}
 	}
 
 }
