@@ -47,15 +47,10 @@ public class GetLinkCanvasData {
         }
     }
 
-    public boolean isDataLoaded() {
-        return this.dataLoaded.get();
-    }
-
-    public void makeLinkCanvasData(){
-
+    public void load(String collectionName){
         try {
             List<QueryDocumentSnapshot> documents = linkCanvasSnap.get().getDocuments();
-            List<LinkCanvas> e = new ArrayList<>();
+            List<LinkCanvas> dataList = new ArrayList<>();
             LinkCanvas linkCanvas;
             for (QueryDocumentSnapshot queryDocumentSnapshot : documents) {
                 Map ent = queryDocumentSnapshot.getData();
@@ -63,7 +58,7 @@ public class GetLinkCanvasData {
                 String jsonString = gson.toJson(ent);
 
                 linkCanvas = gson.fromJson(jsonString, LinkCanvas.class);
-                e.add(linkCanvas);
+                dataList.add(linkCanvas);
             }
         } catch (Exception e) {
             e.printStackTrace();

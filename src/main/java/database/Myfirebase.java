@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.*;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,7 +34,11 @@ public class Myfirebase {
 
     private void initFirebase(){
         try{
-            FileInputStream serviceAccount = new FileInputStream(new File("C:\\Users\\adiak\\Desktop\\perazim\\rpa\\src\\main\\resources\\.objectmodeller-firebase.json"));
+//            FileInputStream serviceAccount = new FileInputStream(new File("C:\\Users\\adiak\\Desktop\\perazim\\rpa\\src\\main\\resources\\.objectmodeller-firebase.json"));
+
+            File file = ResourceUtils.getFile("classpath:.objectmodeller-firebase.json");
+            FileInputStream serviceAccount = new FileInputStream(file);
+
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(credentials)

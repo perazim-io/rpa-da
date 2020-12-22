@@ -2,6 +2,7 @@ package io.perazim.rpada;
 
 import com.google.gson.stream.JsonToken;
 import datamodellers.EntityCanvas;
+import domain_model.DataLoader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,6 +14,13 @@ public class RpaDaApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(RpaDaApplication.class, args);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				DataLoader.getInstance().loadData();
+			}
+		}).start();
 
 //		GetEntityCanvasData.getInstance().init();
 //		if(GetEntityCanvasData.getInstance().isDataLoaded()){
@@ -40,10 +48,10 @@ public class RpaDaApplication {
 //			GetSpaceRelationPortData.getInstance().makeSpaceRelationPortData();
 //		}
 //
-		GetSpaceRelationLinkData.getInstance().init();
-		if(GetSpaceRelationLinkData.getInstance().isDataLoaded()){
-			GetSpaceRelationLinkData.getInstance().makeSpaceRelationLinkData();
-		}
+//		GetSpaceRelationLinkData.getInstance().init();
+//		if(GetSpaceRelationLinkData.getInstance().isDataLoaded()){
+//			GetSpaceRelationLinkData.getInstance().makeSpaceRelationLinkData();
+//		}
 	}
 
 }

@@ -39,7 +39,6 @@ public class GetEntityCanvasData {
         String entityCanvasCollection = "entityCanvas/1010/entityCanvas/dZZN6Gjn8sjPa6JTFDrf/entityCanvas";
 
 
-
         //querying data from firebase
         try {
             entityCanvasData = firestore.collection(entityCanvasCollection).get();
@@ -81,12 +80,12 @@ public class GetEntityCanvasData {
 //
                 e.add(entityCanvas);
             }
-            e.forEach(ele->{
-                System.out.println("this->"+ele.getCrtMs());
+            e.forEach(ele -> {
+                System.out.println("this->" + ele.getCrtMs());
             });
 //            System.out.println(e);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
