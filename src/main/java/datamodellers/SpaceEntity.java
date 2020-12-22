@@ -8,26 +8,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SpaceEntity {
-    private String id;
-    private String projectId;
-    private String microserviceId;
-    private String microserviceCode;
-    private String entityCode;
-    private String crtStoryId;
-    private String crtTaskId;
-    private String updtStoryId;
-    private String updtTaskId;
-    private String entityName;
     private String adminStatus;
-    private String publishedStatus;
-    private int lock;
-    private int lookUpData;
-    private int editable;
+    private String bucket;
     private int cacheable;
-//    private String currentVersion;
-//    private String releaseVersion;
-//    private Number releasedDate;
-    private Number crtDt;
-    private Number updtDt;
-
+    private String StringcrtMicroserviceCode;
+    private long crtMs;
+    private String crtProjectCode;
+    private String crtStoryCode;
+    private String crtStoryId;
+    private String crtTaskCode;
+    private String crtTaskId;
+    private String currentVersion;
+    private String editable;
+    private String entityCode;
+    private String entityName;
+    private String lookUpData;
+    private String microserviceId;
+    private String projectId;
+    private String releaseVersion;
    }
