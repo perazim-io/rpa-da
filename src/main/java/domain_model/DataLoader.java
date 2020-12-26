@@ -38,9 +38,9 @@ public enum DataLoader {
         classMap.put(spaceEntity, SpaceEntity.class);
         classMap.put(linkCanvas, LinkCanvas.class);
         classMap.put(spaceAttributePath, SpaceAttribute.class);
-        classMap.put(spaceRelationPort, SpaceRelationPort.class);
-        classMap.put(spaceRelationLink, SpaceRelationLink.class);
-        classMap.put(entityCanvas,EntityCanvas.class);
+//        classMap.put(spaceRelationPort, SpaceRelationPort.class);
+//        classMap.put(spaceRelationLink, SpaceRelationLink.class);
+//        classMap.put(entityCanvas,EntityCanvas.class);
 
         // load the others
 
@@ -67,9 +67,12 @@ public enum DataLoader {
 
     private void process() {
         List<SpaceEntity> spaceEntityList = (List<SpaceEntity>) (List) dataMap.get("spaceEntity");
+        System.out.println(spaceEntityList.size());
         spaceEntityList.forEach(spaceEntity -> {
             System.out.println(spaceEntity.getEntityName());
         });
+
+        System.out.println(dataMap.get("linkCanvas").toString());
 
     }
 
