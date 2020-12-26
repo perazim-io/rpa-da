@@ -1,31 +1,25 @@
-package datamodellers;
+package domain_model;
 
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-public class SpaceEntity {
+public class DSpaceEntity {
     private String id;
     private String projectId;
+    private String projectName;
     private String microserviceId;
     private String microserviceCode;
-    private String entityCode;
-    private String crtStoryId;
-    private String crtTaskId;
-    private String updtStoryId;
-    private String updtTaskId;
+    private String microserviceName;
     private String entityName;
+    private String entityCode;
     private String adminStatus;
     private String publishedStatus;
-    private int lock;
-    private int lookUpData;
-    private int editable;
-    private int cacheable;
+    private String currentVersion;
+    private String releaseVersion;
+    private Number lookUpData;
+    private Number lock;
+    private Number cacheable;
     private Number crtDt;
     private Number updtDt;
+//    canvasData: EntityCanvas;
+//    spaceAttributes: DSpaceAttribute[];
 
     public String getId() {
         return id;
@@ -41,6 +35,14 @@ public class SpaceEntity {
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public String getMicroserviceId() {
@@ -59,44 +61,12 @@ public class SpaceEntity {
         this.microserviceCode = microserviceCode;
     }
 
-    public String getEntityCode() {
-        return entityCode;
+    public String getMicroserviceName() {
+        return microserviceName;
     }
 
-    public void setEntityCode(String entityCode) {
-        this.entityCode = entityCode;
-    }
-
-    public String getCrtStoryId() {
-        return crtStoryId;
-    }
-
-    public void setCrtStoryId(String crtStoryId) {
-        this.crtStoryId = crtStoryId;
-    }
-
-    public String getCrtTaskId() {
-        return crtTaskId;
-    }
-
-    public void setCrtTaskId(String crtTaskId) {
-        this.crtTaskId = crtTaskId;
-    }
-
-    public String getUpdtStoryId() {
-        return updtStoryId;
-    }
-
-    public void setUpdtStoryId(String updtStoryId) {
-        this.updtStoryId = updtStoryId;
-    }
-
-    public String getUpdtTaskId() {
-        return updtTaskId;
-    }
-
-    public void setUpdtTaskId(String updtTaskId) {
-        this.updtTaskId = updtTaskId;
+    public void setMicroserviceName(String microserviceName) {
+        this.microserviceName = microserviceName;
     }
 
     public String getEntityName() {
@@ -105,6 +75,14 @@ public class SpaceEntity {
 
     public void setEntityName(String entityName) {
         this.entityName = entityName;
+    }
+
+    public String getEntityCode() {
+        return entityCode;
+    }
+
+    public void setEntityCode(String entityCode) {
+        this.entityCode = entityCode;
     }
 
     public String getAdminStatus() {
@@ -123,35 +101,43 @@ public class SpaceEntity {
         this.publishedStatus = publishedStatus;
     }
 
-    public int getLock() {
-        return lock;
+    public String getCurrentVersion() {
+        return currentVersion;
     }
 
-    public void setLock(int lock) {
-        this.lock = lock;
+    public void setCurrentVersion(String currentVersion) {
+        this.currentVersion = currentVersion;
     }
 
-    public int getLookUpData() {
+    public String getReleaseVersion() {
+        return releaseVersion;
+    }
+
+    public void setReleaseVersion(String releaseVersion) {
+        this.releaseVersion = releaseVersion;
+    }
+
+    public Number getLookUpData() {
         return lookUpData;
     }
 
-    public void setLookUpData(int lookUpData) {
+    public void setLookUpData(Number lookUpData) {
         this.lookUpData = lookUpData;
     }
 
-    public int getEditable() {
-        return editable;
+    public Number getLock() {
+        return lock;
     }
 
-    public void setEditable(int editable) {
-        this.editable = editable;
+    public void setLock(Number lock) {
+        this.lock = lock;
     }
 
-    public int getCacheable() {
+    public Number getCacheable() {
         return cacheable;
     }
 
-    public void setCacheable(int cacheable) {
+    public void setCacheable(Number cacheable) {
         this.cacheable = cacheable;
     }
 
@@ -170,4 +156,7 @@ public class SpaceEntity {
     public void setUpdtDt(Number updtDt) {
         this.updtDt = updtDt;
     }
+//    canvasData: EntityCanvas;
+//    spaceAttributes: DSpaceAttribute[];
+//    dmch?: DDmch[];
 }
