@@ -6,8 +6,7 @@ import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import database.Myfirebase;
-import datamodellers.LinkCanvas;
-import datamodellers.SpaceEntity;
+import datamodellers.*;
 import io.perazim.rpada.GetSpaceRelationLinkData;
 
 import java.lang.reflect.Type;
@@ -38,6 +37,11 @@ public enum DataLoader {
         Map<String, Class> classMap = new HashMap<>();
         classMap.put(spaceEntity, SpaceEntity.class);
         classMap.put(linkCanvas, LinkCanvas.class);
+        classMap.put(spaceAttributePath, SpaceAttribute.class);
+        classMap.put(spaceRelationPort, SpaceRelationPort.class);
+        classMap.put(spaceRelationLink, SpaceRelationLink.class);
+        classMap.put(entityCanvas,EntityCanvas.class);
+
         // load the others
 
         Map<String, FutureTask> ftMap = new HashMap<>();

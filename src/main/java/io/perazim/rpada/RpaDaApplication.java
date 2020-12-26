@@ -22,36 +22,6 @@ public class RpaDaApplication {
 			}
 		}).start();
 
-//		GetEntityCanvasData.getInstance().init();
-//		if(GetEntityCanvasData.getInstance().isDataLoaded()){
-//			GetEntityCanvasData.getInstance().makeEntCanvasData();
-//		}
-
-
-//		GetLinkCanvasData.getInstance().init();
-//		if(GetLinkCanvasData.getInstance().isDataLoaded()){
-//			GetLinkCanvasData.getInstance().makeLinkCanvasData();
-//		}
-//
-//		GetSpaceEntityData.getInstance().init();
-//		if(GetSpaceEntityData.getInstance().isDataLoaded()){
-//			GetSpaceEntityData.getInstance().makeSpaceEntityData();
-//		}
-//
-//		GetSpaceAttributeData.getInstance().init();
-//		if(GetSpaceAttributeData.getInstance().isDataLoaded()){
-//			GetSpaceAttributeData.getInstance().makeSpaceAttributeData();
-//		}
-//
-//		GetSpaceRelationPortData.getInstance().init();
-//		if(GetSpaceRelationPortData.getInstance().isDataLoaded()){
-//			GetSpaceRelationPortData.getInstance().makeSpaceRelationPortData();
-//		}
-//
-//		GetSpaceRelationLinkData.getInstance().init();
-//		if(GetSpaceRelationLinkData.getInstance().isDataLoaded()){
-//			GetSpaceRelationLinkData.getInstance().makeSpaceRelationLinkData();
-//		}
 	}
 
 }
