@@ -19,15 +19,4 @@ public class dataConverter {
     private dataConverter(){
 
     }
-
-    public void init(List<SpaceRelationLink> elements){
-
-        List<DRelationLink> DspaceRels =new ArrayList<>();
-
-        elements.forEach((ele)->{
-            DRelationLink rel=new DRelationLink();
-             rel.setId(ele.getId());
-        });
-
-    }
 }

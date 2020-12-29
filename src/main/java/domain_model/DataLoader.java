@@ -7,9 +7,7 @@ import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.*;
-import io.perazim.rpada.GetSpaceRelationLinkData;
 
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -38,9 +36,9 @@ public enum DataLoader {
         classMap.put(spaceEntity, SpaceEntity.class);
         classMap.put(linkCanvas, LinkCanvas.class);
         classMap.put(spaceAttributePath, SpaceAttribute.class);
-//        classMap.put(spaceRelationPort, SpaceRelationPort.class);
-//        classMap.put(spaceRelationLink, SpaceRelationLink.class);
-//        classMap.put(entityCanvas,EntityCanvas.class);
+        classMap.put(spaceRelationPort, SpaceRelationPort.class);
+        classMap.put(spaceRelationLink, SpaceRelationLink.class);
+        classMap.put(entityCanvas,EntityCanvas.class);
 
         // load the others
 
@@ -67,12 +65,18 @@ public enum DataLoader {
 
     private void process() {
         List<SpaceEntity> spaceEntityList = (List<SpaceEntity>) (List) dataMap.get("spaceEntity");
-        System.out.println(spaceEntityList.size());
-        spaceEntityList.forEach(spaceEntity -> {
-            System.out.println(spaceEntity.getEntityName());
-        });
+        List<LinkCanvas> linkCanvasList = (List<LinkCanvas>) (List) dataMap.get("linkCanvas");
+        List<SpaceAttribute> attributeList = (List<SpaceAttribute>) (List) dataMap.get("spaceAttribute");
+        List<SpaceRelationPort> relPortList = (List<SpaceRelationPort>)(List) dataMap.get("spaceRelationPort");
+        List<SpaceRelationLink> relLinkList = (List<SpaceRelationLink>) (List) dataMap.get("spaceRelationLink");
+        List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) dataMap.get("entityCanvas");
 
-        System.out.println(dataMap.get("linkCanvas").toString());
+        System.out.println(spaceEntityList.size());
+        System.out.println(linkCanvasList.size());
+        System.out.println(attributeList.size());
+        System.out.println(relPortList.size());
+        System.out.println(relLinkList.size());
+        System.out.println(entityCanvasList.size());
 
     }
 
@@ -81,7 +85,7 @@ public enum DataLoader {
         private Class clazz;
 
         public LoadFirebaseData(String collectionName, Class clazz) {
-            this.collectionName = collectionName + "/1010/" + collectionName + "/dZZN6Gjn8sjPa6JTFDrf/" + collectionName;
+            this.collectionName = collectionName + "/1010/" + collectionName + "/9EfnEpevW2KN9uuH5Cj5/" + collectionName;
             this.clazz = clazz;
         }
 
@@ -102,6 +106,7 @@ public enum DataLoader {
                 });
             } catch (Exception e) {
                 System.out.println("=========== ERROR HERE ============");
+                e.printStackTrace();
                 System.out.println(errorBuffer.toString());
                 errorBuffer.setLength(0);
             }
