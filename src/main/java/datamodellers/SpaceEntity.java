@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SpaceEntity {
+    private String id;
     private String projectId;
     private String microserviceId;
     private String microserviceCode;
@@ -23,6 +24,7 @@ public class SpaceEntity {
     private int lookUpData;
     private int editable;
     private int cacheable;
+    private String currentVersion;
     private Number crtDt;
     private Number updtDt;
     private String crtTaskCode;

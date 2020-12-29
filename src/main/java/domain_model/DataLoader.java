@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.*;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -77,11 +78,13 @@ public enum DataLoader {
         public Object call() throws Exception {
             final List<Object> retList = new ArrayList<>();
             final StringBuffer errorBuffer = new StringBuffer();
+
             try {
                 ApiFuture<QuerySnapshot> snapshot = firestore.collection(this.collectionName).get();
                 List<QueryDocumentSnapshot> querySnapshot = snapshot.get().getDocuments();
                 querySnapshot.forEach(queryDocumentSnapshot -> {
                     Map<String, Object> dataMap = queryDocumentSnapshot.getData();
+                    dataMap.put("id",queryDocumentSnapshot.getId());
                     Gson gson = new Gson();
                     String jsonString = gson.toJson(dataMap);
                     errorBuffer.append(jsonString);

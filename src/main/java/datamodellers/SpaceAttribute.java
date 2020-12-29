@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class SpaceAttribute {
     private String id;
     private String attributeCode;
+    private String entityCode;
     private String projectId;
     private String microserviceId;
     private String microserviceCode;
