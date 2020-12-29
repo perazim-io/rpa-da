@@ -59,26 +59,10 @@ public enum DataLoader {
             }
         });
 
-        process(); // begin the processing of data
+        dataConverter.getInstance().processData(dataMap);// begin the processing of data
 
     }
 
-    private void process() {
-        List<SpaceEntity> spaceEntityList = (List<SpaceEntity>) (List) dataMap.get("spaceEntity");
-        List<LinkCanvas> linkCanvasList = (List<LinkCanvas>) (List) dataMap.get("linkCanvas");
-        List<SpaceAttribute> attributeList = (List<SpaceAttribute>) (List) dataMap.get("spaceAttribute");
-        List<SpaceRelationPort> relPortList = (List<SpaceRelationPort>)(List) dataMap.get("spaceRelationPort");
-        List<SpaceRelationLink> relLinkList = (List<SpaceRelationLink>) (List) dataMap.get("spaceRelationLink");
-        List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) dataMap.get("entityCanvas");
-
-        System.out.println(spaceEntityList.size());
-        System.out.println(linkCanvasList.size());
-        System.out.println(attributeList.size());
-        System.out.println(relPortList.size());
-        System.out.println(relLinkList.size());
-        System.out.println(entityCanvasList.size());
-
-    }
 
     private class LoadFirebaseData implements Callable {
         private String collectionName;
