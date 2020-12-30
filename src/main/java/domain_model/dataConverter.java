@@ -41,13 +41,13 @@ public class dataConverter {
         return retList;
     }
 
-    public void processData(Map<String, List<Object>> dataMap){
-        List<SpaceEntity> spaceEntityList = (List<SpaceEntity>) (List) dataMap.get("spaceEntity");
-        List<LinkCanvas> linkCanvasList = (List<LinkCanvas>) (List) dataMap.get("linkCanvas");
-        List<SpaceAttribute> attributeList = (List<SpaceAttribute>) (List) dataMap.get("spaceAttribute");
-        List<SpaceRelationPort> relPortList = (List<SpaceRelationPort>)(List) dataMap.get("spaceRelationPort");
-        List<SpaceRelationLink> relLinkList = (List<SpaceRelationLink>) (List) dataMap.get("spaceRelationLink");
-        List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) dataMap.get("entityCanvas");
+    public Domain convertToDomainData(Map<String, List<Object>> persistanceDataMap,String microServiceId){
+        List<SpaceEntity> spaceEntityList = (List<SpaceEntity>) (List) persistanceDataMap.get("spaceEntity");
+        List<LinkCanvas> linkCanvasList = (List<LinkCanvas>) (List) persistanceDataMap.get("linkCanvas");
+        List<SpaceAttribute> attributeList = (List<SpaceAttribute>) (List) persistanceDataMap.get("spaceAttribute");
+        List<SpaceRelationPort> relPortList = (List<SpaceRelationPort>)(List) persistanceDataMap.get("spaceRelationPort");
+        List<SpaceRelationLink> relLinkList = (List<SpaceRelationLink>) (List) persistanceDataMap.get("spaceRelationLink");
+        List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) persistanceDataMap.get("entityCanvas");
 
 
         List<DRelationPort> dRelationPorts =(List<DRelationPort>) (List) convetToDomain(relPortList,DRelationPort.class);
@@ -79,6 +79,11 @@ public class dataConverter {
             });
         });
 
+        Domain domain = new Domain();
+        domain.setMicroServiceId(microServiceId);
+        domain.setDSpaceEntities(dSpaceEntites);
+
+        return domain;
 
     }
 }

@@ -14,7 +14,8 @@ import java.io.FileInputStream;
 public class Myfirebase {
 
     private static Myfirebase _instance;
-    private Firestore firestore;
+    private Firestore objModellerFirestore;
+    private Firestore tenantConfigFirestore;
     private FirebaseDatabase instance;
 
     private  Myfirebase(){
@@ -28,14 +29,15 @@ public class Myfirebase {
         return _instance;
     }
 
-    public Firestore getFirestore() {
-        return this.firestore;
+    public Firestore getObjModellerFirestore() {
+        return this.objModellerFirestore;
     }
+    public Firestore getTenantConfigFirestore(){return this.tenantConfigFirestore;}
 
-    private void initFirebase(){
+
+    private void connectObjModeller(){
+
         try{
-//            FileInputStream serviceAccount = new FileInputStream(new File("C:\\Users\\adiak\\Desktop\\perazim\\rpa\\src\\main\\resources\\.objectmodeller-firebase.json"));
-
             File file = ResourceUtils.getFile("classpath:.objectmodeller-firebase.json");
             FileInputStream serviceAccount = new FileInputStream(file);
 
@@ -45,14 +47,46 @@ public class Myfirebase {
                     .build();
             FirebaseApp firebaseApp = FirebaseApp.initializeApp(options, "test");
             // set firestore in the field variable
-            this.firestore = FirestoreClient.getFirestore(firebaseApp);
+            this.objModellerFirestore = FirestoreClient.getFirestore(firebaseApp);
 
-            System.out.println("Done !!!");
+            System.out.println("object modeller Done !!!");
 
 
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void connectTenantConfig(){
+
+        try {
+
+            File file = ResourceUtils.getFile("classpath:tenantconfig-firebase.json");
+            FileInputStream serviceAccount = new FileInputStream(file);
+
+            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(credentials)
+                    .build();
+            FirebaseApp firebaseApp = FirebaseApp.initializeApp(options, "test1");
+            // set firestore in the field variable
+            this.tenantConfigFirestore = FirestoreClient.getFirestore(firebaseApp);
+
+            System.out.println("tenant config Done !!!");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private void initFirebase(){
+
+        connectTenantConfig();
+        connectObjModeller();
+
     }
 
 }

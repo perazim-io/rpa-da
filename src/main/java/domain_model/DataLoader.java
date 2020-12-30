@@ -8,22 +8,33 @@ import com.google.gson.Gson;
 import database.Myfirebase;
 import datamodellers.*;
 
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.*;
 
 public enum DataLoader {
     instance;
-    private Firestore firestore = Myfirebase.getInstance().getFirestore();
-    private Map<String, List<Object>> dataMap = new HashMap<>();
+    private Firestore firestore = Myfirebase.getInstance().getObjModellerFirestore();
+    private Map<String, List<Object>> persistanceDataMap = new HashMap<>();
+    private Map<String,Domain> domainMap = new HashMap<>();
     private Executor executor = Executors.newFixedThreadPool(10);
 
     public static DataLoader getInstance() {
         return instance;
     }
 
+    public void init(){
+        //query microservice details
+
+
+
+        String microserviceId = "9EfnEpevW2KN9uuH5Cj5";
+        String tenantId = "1010";
+
+        loadData(microserviceId,tenantId);
+    }
+
     // This is the entry point
-    public void loadData() {
+    public void loadData(String microServiceId,String tenantId) {
         System.out.println("Starting to run!!!");
         String spaceEntity = "spaceEntity";
         String spaceAttributePath = "spaceAttribute";
@@ -45,7 +56,7 @@ public enum DataLoader {
 
         Map<String, FutureTask> ftMap = new HashMap<>();
         classMap.forEach((collectionName, className) -> {
-            FutureTask ft = new FutureTask(new LoadFirebaseData(collectionName, className));
+            FutureTask ft = new FutureTask(new LoadFirebaseData(collectionName, className, microServiceId,tenantId));
             ftMap.put(collectionName, ft);
             executor.execute(ft);
         });
@@ -54,13 +65,14 @@ public enum DataLoader {
         ftMap.forEach((collectionName, futureTask) -> {
             try {
                 Object dataList = futureTask.get();
-                this.dataMap.put(collectionName, (List<Object>) dataList);
+                this.persistanceDataMap.put(collectionName, (List<Object>) dataList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
-        dataConverter.getInstance().processData(dataMap);// begin the processing of data
+        Domain domain =dataConverter.getInstance().convertToDomainData(persistanceDataMap,microServiceId);// begin the processing of data
+        this.domainMap.put(microServiceId,domain);
 
     }
 
@@ -69,8 +81,8 @@ public enum DataLoader {
         private String collectionName;
         private Class clazz;
 
-        public LoadFirebaseData(String collectionName, Class clazz) {
-            this.collectionName = collectionName + "/1010/" + collectionName + "/9EfnEpevW2KN9uuH5Cj5/" + collectionName;
+        public LoadFirebaseData(String collectionName, Class clazz,String microServiceId,String tenantId) {
+            this.collectionName = collectionName + "/"+tenantId+"/" + collectionName + "/"+microServiceId+"/" + collectionName;
             this.clazz = clazz;
         }
 

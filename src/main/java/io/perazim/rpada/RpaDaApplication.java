@@ -18,7 +18,7 @@ public class RpaDaApplication {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				DataLoader.getInstance().loadData();
+				DataLoader.getInstance().init();
 			}
 		}).start();
 
