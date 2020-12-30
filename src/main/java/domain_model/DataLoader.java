@@ -10,10 +10,12 @@ import datamodellers.*;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public enum DataLoader {
     instance;
-    private Firestore firestore = Myfirebase.getInstance().getObjModellerFirestore();
+    private Firestore objModellerFirestore = Myfirebase.getInstance().getObjModellerFirestore();
+    private Firestore tenantConfigFirestore = Myfirebase.getInstance().getTenantConfigFirestore();
     private Map<String, List<Object>> persistanceDataMap = new HashMap<>();
     private Map<String,Domain> domainMap = new HashMap<>();
     private Executor executor = Executors.newFixedThreadPool(10);
@@ -24,11 +26,27 @@ public enum DataLoader {
 
     public void init(){
         //query microservice details
-
-
-
-        String microserviceId = "9EfnEpevW2KN9uuH5Cj5";
         String tenantId = "1010";
+        String collectionPath = "microservicesDetails/"+tenantId+"/microservicesDetails";
+        final List<MicroServiceDetails> microServiceDetailsList = new ArrayList<>();
+        final StringBuffer errorBuffer = new StringBuffer();
+        try {
+            ApiFuture<QuerySnapshot> snapshot = tenantConfigFirestore.collection(collectionPath).get();
+            List<QueryDocumentSnapshot> querySnapshot = snapshot.get().getDocuments();
+            querySnapshot.forEach(queryDocumentSnapshot -> {
+                Map<String, Object> dataMap = queryDocumentSnapshot.getData();
+                dataMap.put("id",queryDocumentSnapshot.getId());
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(dataMap);
+                errorBuffer.append(jsonString);
+                MicroServiceDetails dataObj = gson.fromJson(jsonString, MicroServiceDetails.class);
+                microServiceDetailsList.add(dataObj);
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        String microserviceId = microServiceDetailsList.get(2).getMicroserviceId();
 
         loadData(microserviceId,tenantId);
     }
@@ -92,7 +110,7 @@ public enum DataLoader {
             final StringBuffer errorBuffer = new StringBuffer();
 
             try {
-                ApiFuture<QuerySnapshot> snapshot = firestore.collection(this.collectionName).get();
+                ApiFuture<QuerySnapshot> snapshot = objModellerFirestore.collection(this.collectionName).get();
                 List<QueryDocumentSnapshot> querySnapshot = snapshot.get().getDocuments();
                 querySnapshot.forEach(queryDocumentSnapshot -> {
                     Map<String, Object> dataMap = queryDocumentSnapshot.getData();

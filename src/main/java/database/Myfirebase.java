@@ -34,59 +34,31 @@ public class Myfirebase {
     }
     public Firestore getTenantConfigFirestore(){return this.tenantConfigFirestore;}
 
+    private Firestore connectToDb(String filePath,String testName,String dbName){
 
-    private void connectObjModeller(){
-
+        FirebaseApp firebaseApp = null;
         try{
-            File file = ResourceUtils.getFile("classpath:.objectmodeller-firebase.json");
+            File file = ResourceUtils.getFile(filePath);
             FileInputStream serviceAccount = new FileInputStream(file);
 
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(credentials)
                     .build();
-            FirebaseApp firebaseApp = FirebaseApp.initializeApp(options, "test");
+            firebaseApp = FirebaseApp.initializeApp(options, testName);
             // set firestore in the field variable
-            this.objModellerFirestore = FirestoreClient.getFirestore(firebaseApp);
 
-            System.out.println("object modeller Done !!!");
-
+            System.out.println(dbName+ "Done !!!");
 
         }catch (Exception e){
             e.printStackTrace();
         }
+        return FirestoreClient.getFirestore(firebaseApp);
     }
-
-    private void connectTenantConfig(){
-
-        try {
-
-            File file = ResourceUtils.getFile("classpath:tenantconfig-firebase.json");
-            FileInputStream serviceAccount = new FileInputStream(file);
-
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(credentials)
-                    .build();
-            FirebaseApp firebaseApp = FirebaseApp.initializeApp(options, "test1");
-            // set firestore in the field variable
-            this.tenantConfigFirestore = FirestoreClient.getFirestore(firebaseApp);
-
-            System.out.println("tenant config Done !!!");
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
 
     private void initFirebase(){
-
-        connectTenantConfig();
-        connectObjModeller();
-
+        this.tenantConfigFirestore=connectToDb("classpath:tenantconfig-firebase.json","test1","tenant config");
+        this.objModellerFirestore=connectToDb("classpath:.objectmodeller-firebase.json","test","object modeller");
     }
 
 }
