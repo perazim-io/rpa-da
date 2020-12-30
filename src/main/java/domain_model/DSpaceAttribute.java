@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,7 +48,7 @@ public class DSpaceAttribute {
     private String releaseVersion;
     private Number crtDt;
     private Number updtDt;
-//    spaceRelationPorts?: DSpaceRelationPort[];
+    private List<DRelationPort> spaceRelationPorts;
 //    routingConfig?: RoutingConfig;
 //    rulesConfig?: RulesConfig;
 }

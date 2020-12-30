@@ -50,8 +50,8 @@ public class dataConverter {
         List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) dataMap.get("entityCanvas");
 
 
-
-        List<DSpaceAttribute> dSpaceAttributes=(List<DSpaceAttribute>) (List) convetToDomain(attributeList,DSpaceAttribute.class);
+        List<DRelationPort> dRelationPorts =(List<DRelationPort>) (List) convetToDomain(relPortList,DRelationPort.class);
+//        List<DSpaceAttribute> dSpaceAttributes=(List<DSpaceAttribute>) (List) convetToDomain(attributeList,DSpaceAttribute.class);
         List<DSpaceEntity> dSpaceEntites=(List<DSpaceEntity>) (List) convetToDomain(spaceEntityList,DSpaceEntity.class);
 
 
@@ -59,15 +59,24 @@ public class dataConverter {
             List<SpaceAttribute>attrs= attributeList.stream().filter(att-> att.getEntityCode().equals(dSpaceEntity.getEntityCode())).collect(Collectors.toList());
             System.out.println(dSpaceEntity.getEntityCode());
             List<DSpaceAttribute> attrs1=(List<DSpaceAttribute>) (List) convetToDomain(attrs,DSpaceAttribute.class);
+            attrs1.forEach(dSpaceAttribute -> {
+                boolean match = dRelationPorts.stream().noneMatch(dRelationPort -> dRelationPort.getAttributeId().equals(dSpaceAttribute.getId()));
+                if(!match){
+                    List<DRelationPort> ports = dRelationPorts.stream().filter(port->port.getAttributeId().equals(dSpaceAttribute.getId())).collect(Collectors.toList());
+                    dSpaceAttribute.setSpaceRelationPorts(ports);
+                }
+            });
+
             dSpaceEntity.setSpaceAttributes(attrs1);
             EntityCanvas canvasData = entityCanvasList.stream().filter(entityCanvas -> entityCanvas.getEntityId().equals(dSpaceEntity.getId())).findAny().orElse(null);
             dSpaceEntity.setCanvasData(canvasData);
         });
 
         dSpaceEntites.forEach(ent->{
-            String names ;
-            names =ent.getCanvasData().toString();
-            System.out.println(ent.getEntityName()+names);
+            List<DRelationPort> names = null;
+            ent.getSpaceAttributes().forEach(dSpaceAttribute -> {
+                    System.out.println(dSpaceAttribute.getAttrName()+"==="+dSpaceAttribute.getSpaceRelationPorts());
+            });
         });
 
 
