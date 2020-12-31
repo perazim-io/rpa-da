@@ -49,6 +49,10 @@ public enum DataLoader {
         loadData(microServiceDetailsList.get(2),tenantId);
     }
 
+    public Domain getDomainObject(String microserviceId) {
+        return this.domainMap.get(microserviceId);
+    }
+
     // This is the entry point
     public void loadData(MicroServiceDetails microService,String tenantId) {
         System.out.println("Starting to run!!!");
