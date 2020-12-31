@@ -21,12 +21,10 @@ public class DRelationPort {
     private String attributeId;
     private String attributeName;
     private String port;
-    private Number external;
-    private Number externalRelationConfig;
     private Number crtDt;
     private Number updtDt;
-//    inLinks: DSpaceRelationLink[];
-//    outLinks: DSpaceRelationLink[];
+    private List<DRelationLink> inLinks;
+    private List<DRelationLink> outLinks;
     private String crtTaskId;
     private String crtStoryId;
     private String currentVersion;

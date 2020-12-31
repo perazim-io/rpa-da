@@ -15,8 +15,6 @@ public class SpaceRelationPort {
     private String entityId;
     private String attributeId;
     private String port;
-    private Number external;
-    private Number externalRelationConfig;
     private Number crtDt;
     private Number updtDt;
     private String crtTaskId;

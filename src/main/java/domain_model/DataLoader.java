@@ -46,13 +46,11 @@ public enum DataLoader {
             e.printStackTrace();
         }
 
-        String microserviceId = microServiceDetailsList.get(2).getMicroserviceId();
-
-        loadData(microserviceId,tenantId);
+        loadData(microServiceDetailsList.get(2),tenantId);
     }
 
     // This is the entry point
-    public void loadData(String microServiceId,String tenantId) {
+    public void loadData(MicroServiceDetails microService,String tenantId) {
         System.out.println("Starting to run!!!");
         String spaceEntity = "spaceEntity";
         String spaceAttributePath = "spaceAttribute";
@@ -74,7 +72,7 @@ public enum DataLoader {
 
         Map<String, FutureTask> ftMap = new HashMap<>();
         classMap.forEach((collectionName, className) -> {
-            FutureTask ft = new FutureTask(new LoadFirebaseData(collectionName, className, microServiceId,tenantId));
+            FutureTask ft = new FutureTask(new LoadFirebaseData(collectionName, className, microService.getMicroserviceId(),tenantId));
             ftMap.put(collectionName, ft);
             executor.execute(ft);
         });
@@ -89,8 +87,8 @@ public enum DataLoader {
             }
         });
 
-        Domain domain =dataConverter.getInstance().convertToDomainData(persistanceDataMap,microServiceId);// begin the processing of data
-        this.domainMap.put(microServiceId,domain);
+        Domain domain =dataConverter.getInstance().convertToDomainData(persistanceDataMap,microService);// begin the processing of data
+        this.domainMap.put(microService.getMicroserviceId(),domain);
 
     }
 
