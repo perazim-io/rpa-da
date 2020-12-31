@@ -48,10 +48,7 @@ public class dataConverter {
         List<SpaceRelationLink> relLinkList = (List<SpaceRelationLink>) (List) persistanceDataMap.get("spaceRelationLink");
         List<EntityCanvas> entityCanvasList = (List<EntityCanvas>) (List) persistanceDataMap.get("entityCanvas");
 
-        System.out.println("relation link="+relLinkList);
-
         List<DRelationPort> dRelationPorts =(List<DRelationPort>) (List) convetToDomain(relPortList,DRelationPort.class);
-//        List<DSpaceAttribute> dSpaceAttributes=(List<DSpaceAttribute>) (List) convetToDomain(attributeList,DSpaceAttribute.class);
         List<DSpaceEntity> dSpaceEntites=(List<DSpaceEntity>) (List) convetToDomain(spaceEntityList,DSpaceEntity.class);
         List<DRelationLink> dRelationLinks=(List<DRelationLink>)(List) convetToDomain(relLinkList,DRelationLink.class);
 
@@ -68,9 +65,14 @@ public class dataConverter {
                 boolean match = dRelationPorts.stream().noneMatch(dRelationPort -> dRelationPort.getAttributeId().equals(dSpaceAttribute.getId()));
                 if(!match){
                     List<DRelationPort> ports = dRelationPorts.stream().filter(port->port.getAttributeId().equals(dSpaceAttribute.getId())).collect(Collectors.toList());
-                    System.out.println("ports=="+ports.size());
+
                     ports.forEach(dRelationPort -> {
+                        dRelationPort.setProjectName(microService.getProjectName());
+                        dRelationPort.setMicroserviceName(microService.getMicroserviceName());
+                        dRelationPort.setEntityName(dSpaceEntity.getEntityName());
                         dRelationLinks.stream().forEach(link->{
+                            link.setInMicroserviceName(microService.getMicroserviceName());
+                            link.setInProjectName(microService.getProjectName());
                             if(dRelationPort.getPort().equals("IN")){
                                 link.getInRelationPortId().equals(dRelationPort.getId());
                                 List<DRelationLink> inLinks=dRelationPort.getInLinks();

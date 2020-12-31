@@ -49,6 +49,7 @@ public enum DataLoader {
     }
 
     public Domain getDomainObject(String microserviceId) {
+
         return this.domainMap.get(microserviceId);
     }
 
@@ -92,7 +93,7 @@ public enum DataLoader {
 
         Domain domain =dataConverter.getInstance().convertToDomainData(persistanceDataMap,microService);// begin the processing of data
         this.domainMap.put(microService.getMicroserviceId(),domain);
-
+        System.out.println(domainMap.toString());
     }
 
 

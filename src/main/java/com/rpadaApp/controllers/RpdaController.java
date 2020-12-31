@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/rpda")
+@RequestMapping("/rpda")
 public class RpdaController {
 
-    @GetMapping("/domainObject")
-    public ResponseEntity<Domain> getDomainObject(@PathVariable String msId) {
+    @GetMapping(path="/{msId}")
+    public ResponseEntity<Domain> getDomainObject(@PathVariable("msId") String msId) {
         Domain obj= DataLoader.getInstance().getDomainObject(msId);
         return new ResponseEntity<Domain>(obj, HttpStatus.OK);
     }
