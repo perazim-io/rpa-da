@@ -1,4 +1,4 @@
-package domain_model;
+package com.rpadaApp.domain_model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

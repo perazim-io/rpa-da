@@ -1,6 +1,6 @@
-package domain_model;
+package com.rpadaApp.domain_model;
 
-import datamodellers.EntityCanvas;
+import com.rpadaApp.datamodellers.EntityCanvas;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

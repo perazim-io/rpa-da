@@ -1,16 +1,15 @@
-package domain_model;
+package com.rpadaApp.domain_model;
 
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import database.Myfirebase;
-import datamodellers.*;
+import com.rpadaApp.database.Myfirebase;
+import com.rpadaApp.datamodellers.*;
 
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 public enum DataLoader {
     instance;

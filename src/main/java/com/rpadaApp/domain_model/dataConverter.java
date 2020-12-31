@@ -1,7 +1,7 @@
-package domain_model;
+package com.rpadaApp.domain_model;
 
 import com.google.gson.Gson;
-import datamodellers.*;
+import com.rpadaApp.datamodellers.*;
 
 import java.util.ArrayList;
 import java.util.List;

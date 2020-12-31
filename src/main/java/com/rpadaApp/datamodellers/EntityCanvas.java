@@ -1,4 +1,4 @@
-package datamodellers;
+package com.rpadaApp.datamodellers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
