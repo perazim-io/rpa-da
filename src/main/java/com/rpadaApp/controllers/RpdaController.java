@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rpda")
 public class RpdaController {
 
+    //URL : http://localhost:8081/rpda/9EfnEpevW2KN9uuH5Cj5
+    //URL format = http://localhost:8081/rpda/{EntityId}
+
     @GetMapping(path="/{msId}")
     public ResponseEntity<Domain> getDomainObject(@PathVariable("msId") String msId) {
         Domain obj= DataLoader.getInstance().getDomainObject(msId);
