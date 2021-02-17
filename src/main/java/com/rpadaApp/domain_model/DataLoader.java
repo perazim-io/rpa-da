@@ -45,7 +45,7 @@ public enum DataLoader {
             e.printStackTrace();
         }
 
-        loadData(microServiceDetailsList.get(2),tenantId);
+        loadData(microServiceDetailsList.get(0),tenantId);
     }
 
     public Domain getDomainObject(String microserviceId) {
