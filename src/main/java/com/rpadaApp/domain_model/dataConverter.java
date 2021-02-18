@@ -35,6 +35,7 @@ public class dataConverter {
                 }catch (Exception e){
                     System.out.println("=====Error Occured======");
                     e.printStackTrace();
+                    System.out.println("class is"+clazz);
                 }
             });
         return retList;

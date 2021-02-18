@@ -10,6 +10,8 @@ import com.rpadaApp.datamodellers.*;
 
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public enum DataLoader {
     instance;
@@ -45,7 +47,21 @@ public enum DataLoader {
             e.printStackTrace();
         }
 
-        loadData(microServiceDetailsList.get(0),tenantId);
+
+
+        System.out.println("microservices to get");
+
+        List<String> collect = IntStream.range(0, microServiceDetailsList.toArray().length)
+                .mapToObj(index -> index + ":" + microServiceDetailsList.get(index).getMicroserviceName()+" "+microServiceDetailsList.get(index).getMicroserviceId())
+                .collect(Collectors.toList());
+
+        collect.forEach(System.out::println);
+
+        Scanner input = new Scanner(System.in);
+
+        int reqdServiceNo = input.nextInt();
+
+        loadData(microServiceDetailsList.get(reqdServiceNo),tenantId);
     }
 
     public Domain getDomainObject(String microserviceId) {
