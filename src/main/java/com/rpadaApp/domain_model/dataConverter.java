@@ -1,6 +1,7 @@
 package com.rpadaApp.domain_model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.rpadaApp.datamodellers.*;
 
 import java.util.ArrayList;
@@ -22,20 +23,24 @@ public class dataConverter {
 
     }
 
-    public <V> List<Object> convetToDomain(List<V> dataList, Class clazz){
+    public <V> List<Object> convetToDomain(List<V> entitiesList, Class clazz){
 //        final StringBuffer errorBuffer = new StringBuffer();
         List<Object> retList = new ArrayList<>();
-            dataList.forEach(data->{
+            entitiesList.forEach(attribute->{
                 try {
                     Gson gson = new Gson();
-                    String jsonString = gson.toJson(data);
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    String jsonString = gson.toJson(attribute);
+                    Object obj=gsonBuilder.create().fromJson(jsonString,clazz);
+
+
 //                    errorBuffer.append(jsonString);
-                    Object obj = gson.fromJson(jsonString, clazz);
+//                    Object obj = gson.fromJson(jsonString, clazz);
                     retList.add(obj);
                 }catch (Exception e){
                     System.out.println("=====Error Occured======");
                     e.printStackTrace();
-                    System.out.println("class is"+clazz);
+                    System.out.println("class is"+attribute);
                 }
             });
         return retList;
@@ -71,35 +76,73 @@ public class dataConverter {
                         dRelationPort.setProjectName(microService.getProjectName());
                         dRelationPort.setMicroserviceName(microService.getMicroserviceName());
                         dRelationPort.setEntityName(dSpaceEntity.getEntityName());
-                        dRelationLinks.stream().forEach(link->{
-                            link.setInMicroserviceName(microService.getMicroserviceName());
-                            link.setInProjectName(microService.getProjectName());
-                            if(dRelationPort.getPort().equals("IN")){
-                                link.getInRelationPortId().equals(dRelationPort.getId());
-                                List<DRelationLink> inLinks=dRelationPort.getInLinks();
-                                if (inLinks == null) {
-                                    inLinks = new ArrayList<DRelationLink>();
-                                } else {
-                                    inLinks.add(link);
-                                }
-                                dRelationPort.setInLinks(inLinks);
+
+                        if(dRelationPort.getPort().equals("IN")){
+                            List<DRelationLink>reqdLinks= dRelationLinks.stream().filter(dRelationLink -> dRelationLink.getInRelationPortId().equals(dRelationPort.getId())
+                            ).collect(Collectors.toList());
+
+                            reqdLinks.forEach(link->{
+                                link.setInMicroserviceName(microService.getMicroserviceName());
+                                link.setInProjectName(microService.getProjectName());
+
                                 LinkCanvas canvasData =linkCanvasList.stream().filter(linkCanvas -> linkCanvas.getRelationLinkId().equals(link.getId())).findFirst().get();
+
                                 link.setLinkCanvasData(canvasData);
-                            }else {
-                                if(link.getOutRelationPortId().equals(dRelationPort.getId())){
-                                    List<DRelationLink> outLinks=dRelationPort.getOutLinks();
-                                    if (outLinks == null) {
-                                        outLinks = new ArrayList<DRelationLink>();
-                                    } else {
-                                        outLinks.add(link);
-                                    }
-                                    outLinks.add(link);
-                                    dRelationPort.setOutLinks(outLinks);
-                                    LinkCanvas canvasData =linkCanvasList.stream().filter(linkCanvas -> linkCanvas.getRelationLinkId().equals(link.getId())).findFirst().get();
-                                    link.setLinkCanvasData(canvasData);
-                                }
-                            }
-                        });
+                                link.setInEntityName(dSpaceEntity.getEntityName());
+                                link.setOutAttributeName(dSpaceAttribute.getAttrName());
+
+                            });
+
+                            dRelationPort.setInLinks(reqdLinks);
+                        }else{
+                            List<DRelationLink>reqdLinks= dRelationLinks.stream().filter(dRelationLink -> dRelationLink.getOutRelationPortId().equals(dRelationPort.getId())
+                            ).collect(Collectors.toList());
+
+                            reqdLinks.forEach(link->{
+                                link.setInMicroserviceName(microService.getMicroserviceName());
+                                link.setInProjectName(microService.getProjectName());
+
+                                LinkCanvas canvasData =linkCanvasList.stream().filter(linkCanvas -> linkCanvas.getRelationLinkId().equals(link.getId())).findFirst().get();
+
+                                link.setLinkCanvasData(canvasData);
+                                link.setOutEntityName(dSpaceEntity.getEntityName());
+                                link.setOutAttributeName(dSpaceAttribute.getAttrName());
+
+                            });
+
+                            dRelationPort.setOutLinks(reqdLinks);
+                        }
+
+
+//                        dRelationLinks.stream().forEach(link->{
+//                            link.setInMicroserviceName(microService.getMicroserviceName());
+//                            link.setInProjectName(microService.getProjectName());
+//                            if(dRelationPort.getPort().equals("IN")){
+//                                link.getInRelationPortId().equals(dRelationPort.getId());
+//                                List<DRelationLink> inLinks=dRelationPort.getInLinks();
+//                                if (inLinks == null) {
+//                                    inLinks = new ArrayList<DRelationLink>();
+//                                } else {
+//                                    inLinks.add(link);
+//                                }
+//                                dRelationPort.setInLinks(inLinks);
+//                                LinkCanvas canvasData =linkCanvasList.stream().filter(linkCanvas -> linkCanvas.getRelationLinkId().equals(link.getId())).findFirst().get();
+//                                link.setLinkCanvasData(canvasData);
+//                            }else {
+//                                if(link.getOutRelationPortId().equals(dRelationPort.getId())){
+//                                    List<DRelationLink> outLinks=dRelationPort.getOutLinks();
+//                                    if (outLinks == null) {
+//                                        outLinks = new ArrayList<DRelationLink>();
+//                                    } else {
+//                                        outLinks.add(link);
+//                                    }
+//                                    outLinks.add(link);
+//                                    dRelationPort.setOutLinks(outLinks);
+//                                    LinkCanvas canvasData =linkCanvasList.stream().filter(linkCanvas -> linkCanvas.getRelationLinkId().equals(link.getId())).findFirst().get();
+//                                    link.setLinkCanvasData(canvasData);
+//                                }
+//                            }
+//                        });
                     });
                     dSpaceAttribute.setSpaceRelationPorts(ports);
                 }

@@ -46,6 +46,7 @@ public class DSpaceAttribute {
     private Number lock;
     private String currentVersion;
     private String releaseVersion;
+    private Number releasedDate;
     private Number crtDt;
     private Number updtDt;
     private List<DRelationPort> spaceRelationPorts;
